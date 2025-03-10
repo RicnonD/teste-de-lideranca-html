@@ -50,19 +50,19 @@ function calculateScore() {
     if (totalScore >= 10 && totalScore <= 20) {
         analysis = "Liderança mais autocrática. Você tende a tomar decisões sozinho e manter o controle centralizado.";
         leaderType = 'Autocrático';
-        imageUrl = '/images/autocratico.png';
+        imageUrl = '../images/autocratico.png';  // Caminho relativo correto
     } else if (totalScore >= 21 && totalScore <= 30) {
         analysis = "Liderança equilibrada. Você busca um meio-termo entre autonomia e controle.";
         leaderType = 'Equilibrado';
-        imageUrl = '/images/equilibrado.png';
+        imageUrl = '../images/equilibrado.png';  // Caminho relativo correto
     } else if (totalScore >= 31 && totalScore <= 40) {
         analysis = "Liderança participativa. Você valoriza a opinião da equipe e promove um ambiente colaborativo.";
         leaderType = 'Participativo';
-        imageUrl = '/images/participativo.png';
+        imageUrl = '../images/participativo.png';  // Caminho relativo correto
     } else if (totalScore >= 41 && totalScore <= 50) {
         analysis = "Liderança inspiradora. Você motiva, apoia e desenvolve sua equipe, promovendo um ambiente de confiança e inovação.";
         leaderType = 'Inspirador';
-        imageUrl = '/images/inspirador.png';
+        imageUrl = '../images/inspirador.png';  // Caminho relativo correto
     } else {
         analysis = "Por favor, responda todas as perguntas para obter uma análise.";
         leaderType = 'Indefinido';

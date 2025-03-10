@@ -4,25 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teste de Liderança</title>
-    <!-- Link para o CSS usando caminho absoluto -->
-    <link rel="stylesheet" href="/output/css/styles.css">
+    <!-- Caminho corrigido para o CSS -->
+    <link rel="stylesheet" href="output/css/styles.css">
 </head>
 <body>
-    <!-- Header será carregado aqui -->
     <header id="header"></header>
 
     <div class="container">
         <h1>Bem-vindo ao Teste de Liderança</h1>
         <p>Descubra seu estilo de liderança respondendo ao teste.</p>
-        <!-- Link para a página de teste usando caminho absoluto -->
-        <a href="/output/pages/teste.html" class="button">Iniciar Teste</a>
+        <a href="output/pages/teste.html" class="button">Iniciar Teste</a>
     </div>
 
-    <!-- Footer será carregado aqui -->
     <footer id="footer"></footer>
 
-    <!-- Link para o arquivo JS usando caminho absoluto -->
-    <script src="/output/js/scripts.js"></script>
+    <!-- Inclua a biblioteca Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Caminho corrigido para o JS -->
+    <script src="output/js/scripts.js"></script>
 
     <script>
         // Função para carregar conteúdo de um arquivo HTML externo (header e footer)
@@ -37,8 +36,8 @@
 
         // Carregar header e footer ao carregar a página
         window.onload = function() {
-            loadHTML('/output/partials/header.html', 'header');
-            loadHTML('/output/partials/footer.html', 'footer');
+            loadHTML('output/partials/header.html', 'header');
+            loadHTML('output/partials/footer.html', 'footer');
         }
     </script>
 </body>

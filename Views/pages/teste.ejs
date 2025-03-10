@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Liderança</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+    <div class="container">
+        <div class="instructions">
+            <p>Responda as perguntas abaixo com uma nota de 1 a 5, onde 1 é "Discordo Totalmente" e 5 é "Concordo Totalmente".</p>
+        </div>
+        <div class="scale">
+            <p>Escala: 1 = Discordo Totalmente, 2 = Discordo, 3 = Neutro, 4 = Concordo e 5 = Concordo Totalmente</p>
+        </div>
+        <form id="leadershipTest">
+            <!-- Perguntas serão adicionadas aqui via JavaScript -->
+        </form>
+        <button id="showResult" class="button">Mostrar Resultado</button>
+        <div id="result" class="result"></div>
+    </div>
+
+    <%- include('../partials/footer') %>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/scripts.js"></script>
+</body>
+</html>

@@ -10,6 +10,7 @@ Este projeto é um teste de liderança que ajuda você a descobrir seu estilo de
 ## Tecnologias Usadas
 
 
-Tecnologias Usadas
+Tecnologias Usadas:
+
 HTML5: Estrutura do conteúdo.
 CSS3: Estilos para tornar o layout responsivo e visualmente agradável.

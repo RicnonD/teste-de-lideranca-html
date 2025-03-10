@@ -1,19 +1,13 @@
 # Teste de Liderança
 
-Este é um projeto simples de um **Teste de Liderança** desenvolvido em HTML e CSS. O objetivo é oferecer aos usuários a oportunidade de avaliar seu estilo de liderança respondendo a perguntas simples.
+Este projeto é um teste de liderança que ajuda você a descobrir seu estilo de liderança.
 
-## Estrutura do Projeto
+## Como Usar
 
-O projeto possui a seguinte estrutura de pastas:
+1. Acesse o site: (https://ricnond.github.io/tesde-de-lideranca-html/output/pages/teste.html).
+2. Responda as perguntas e veja seu resultado.
 
-/
-├── index.html        # Página inicial do projeto
-├── output/           # Pasta contendo o conteúdo do site
-│   ├── css/          # Pasta com os arquivos de estilo CSS
-│   ├── pages/        # Pasta com as páginas secundárias (Sobre, Contato, Teste)
-│   │   ├── sobre.html
-│   │   ├── contato.html
-│   │   └── teste.html
+## Tecnologias Usadas
 
 
 Tecnologias Usadas

@@ -34,13 +34,27 @@ questions.forEach((question, index) => {
     form.appendChild(div);
 });
 
+// Função para validar respostas antes do cálculo
+function validateInputs() {
+    const inputs = document.querySelectorAll('input[type="number"]');
+    for (let input of inputs) {
+        if (input.value === "" || input.value < 1 || input.value > 5) {
+            alert("Por favor, preencha todas as perguntas com valores entre 1 e 5.");
+            return false;
+        }
+    }
+    return true;
+}
+
 // Função para calcular a pontuação e exibir o dashboard
 function calculateScore() {
+    if (!validateInputs()) return;
+
     const inputs = document.querySelectorAll('input[type="number"]');
     let totalScore = 0;
 
     inputs.forEach(input => {
-        totalScore += parseInt(input.value) || 0;
+        totalScore += parseInt(input.value);
     });
 
     let analysis = '';
@@ -50,19 +64,19 @@ function calculateScore() {
     if (totalScore >= 10 && totalScore <= 20) {
         analysis = "Liderança mais autocrática. Você tende a tomar decisões sozinho e manter o controle centralizado.";
         leaderType = 'Autocrático';
-        imageUrl = '../images/autocratico.png';  // Caminho relativo correto
+        imageUrl = '../images/autocratico.png';
     } else if (totalScore >= 21 && totalScore <= 30) {
         analysis = "Liderança equilibrada. Você busca um meio-termo entre autonomia e controle.";
         leaderType = 'Equilibrado';
-        imageUrl = '../images/equilibrado.png';  // Caminho relativo correto
+        imageUrl = '../images/equilibrado.png';
     } else if (totalScore >= 31 && totalScore <= 40) {
         analysis = "Liderança participativa. Você valoriza a opinião da equipe e promove um ambiente colaborativo.";
         leaderType = 'Participativo';
-        imageUrl = '../images/participativo.png';  // Caminho relativo correto
+        imageUrl = '../images/participativo.png';
     } else if (totalScore >= 41 && totalScore <= 50) {
         analysis = "Liderança inspiradora. Você motiva, apoia e desenvolve sua equipe, promovendo um ambiente de confiança e inovação.";
         leaderType = 'Inspirador';
-        imageUrl = '../images/inspirador.png';  // Caminho relativo correto
+        imageUrl = '../images/inspirador.png';
     } else {
         analysis = "Por favor, responda todas as perguntas para obter uma análise.";
         leaderType = 'Indefinido';
@@ -90,15 +104,21 @@ function calculateScore() {
         </div>
     `;
 
-    // Cria o gráfico
+    // Criar ou atualizar o gráfico
     createChart(totalScore);
 }
 
-// Função para criar o gráfico
+// Função para criar o gráfico e evitar duplicação
 function createChart(totalScore) {
-    const ctx = document.getElementById('leaderChart').getContext('2d');
+    const canvas = document.getElementById('leaderChart');
 
-    // Dados para o gráfico
+    // Remove qualquer gráfico existente antes de criar um novo
+    if (canvas.chartInstance) {
+        canvas.chartInstance.destroy();
+    }
+
+    const ctx = canvas.getContext('2d');
+
     const chartData = {
         labels: ['Autocrático (10-20)', 'Equilibrado (21-30)', 'Participativo (31-40)', 'Inspirador (41-50)'],
         datasets: [{
@@ -110,10 +130,10 @@ function createChart(totalScore) {
                 totalScore >= 41 && totalScore <= 50 ? totalScore : 0
             ],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)'
+                'rgba(255, 99, 132, 0.5)',
+                'rgba(54, 162, 235, 0.5)',
+                'rgba(75, 192, 192, 0.5)',
+                'rgba(153, 102, 255, 0.5)'
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
@@ -126,10 +146,11 @@ function createChart(totalScore) {
     };
 
     // Configurações do gráfico
-    const leaderChart = new Chart(ctx, {
+    canvas.chartInstance = new Chart(ctx, {
         type: 'bar',
         data: chartData,
         options: {
+            responsive: true,
             scales: {
                 y: {
                     beginAtZero: true,
@@ -138,18 +159,11 @@ function createChart(totalScore) {
                         display: true,
                         text: 'Pontuação'
                     }
-                },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Tipos de Liderança'
-                    }
                 }
             },
             plugins: {
                 legend: {
-                    display: true,
-                    position: 'top'
+                    display: false
                 }
             }
         }

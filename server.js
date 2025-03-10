@@ -1,15 +1,15 @@
 const express = require("express");
 const path = require("path");
 
-const app = express();
+const app = express(); // Criação da instância do Express
 const port = process.env.PORT || 3000;
+
+// ✅ Configuração do EJS como motor de visualização
+app.set("views", path.join(__dirname, "views")); // Caminho absoluto para a pasta views
+app.set("view engine", "ejs");
 
 // ✅ Configuração para servir arquivos estáticos
 app.use(express.static(path.join(__dirname, "public")));
-
-// ✅ Configuração do EJS como motor de visualização
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
 
 // ✅ Rota da página inicial
 app.get("/", (req, res) => {

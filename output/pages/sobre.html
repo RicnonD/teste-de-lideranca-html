@@ -4,18 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre o Teste</title>
-    <link rel="stylesheet" href="../output/css/styles.css">
+    <!-- Caminho relativo para o CSS (voltando um nível para acessar a pasta output) -->
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    <div id="header"></div>
+    <!-- Header será carregado aqui -->
+    <header id="header"></header>
 
     <div class="container">
         <h2>Sobre o Teste de Liderança</h2>
         <p>Explicação sobre como o teste funciona...</p>
     </div>
 
-    <div id="footer"></div>
+    <!-- Footer será carregado aqui -->
+    <footer id="footer"></footer>
 
-    <script src="../output/js/scripts.js"></script>
+    <!-- Caminho relativo para o JS (voltando um nível para acessar a pasta output) -->
+    <script src="../js/scripts.js"></script>
+
+    <script>
+        // Função para carregar conteúdo de um arquivo HTML externo (header e footer)
+        function loadHTML(file, elementId) {
+            fetch(file)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(elementId).innerHTML = data;
+                })
+                .catch(error => console.error('Erro ao carregar o arquivo:', error));
+        }
+
+        // Carregar header e footer ao carregar a página
+        window.onload = function() {
+            loadHTML('../partials/header.html', 'header');
+            loadHTML('../partials/footer.html', 'footer');
+        }
+    </script>
 </body>
 </html>

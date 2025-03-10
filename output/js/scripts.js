@@ -16,37 +16,48 @@ const showResultButton = document.getElementById('showResult');
 const resultDiv = document.getElementById('result');
 
 // Adiciona as perguntas ao formulário
-questions.forEach((question, index) => {
-    const div = document.createElement('div');
-    div.className = 'question';
+function renderQuestions() {
+    questions.forEach((question, index) => {
+        const div = document.createElement('div');
+        div.className = 'question';
 
-    const label = document.createElement('label');
-    label.textContent = `${index + 1}. ${question}`;
+        const label = document.createElement('label');
+        label.textContent = `${index + 1}. ${question}`;
 
-    const input = document.createElement('input');
-    input.type = 'number';
-    input.min = 1;
-    input.max = 5;
-    input.required = true;
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.min = 1;
+        input.max = 5;
+        input.required = true;
 
-    div.appendChild(label);
-    div.appendChild(input);
-    form.appendChild(div);
-});
-
-// Função para validar respostas antes do cálculo
-function validateInputs() {
-    const inputs = document.querySelectorAll('input[type="number"]');
-    for (let input of inputs) {
-        if (input.value === "" || input.value < 1 || input.value > 5) {
-            alert("Por favor, preencha todas as perguntas com valores entre 1 e 5.");
-            return false;
-        }
-    }
-    return true;
+        div.appendChild(label);
+        div.appendChild(input);
+        form.appendChild(div);
+    });
 }
 
-// Função para calcular a pontuação e exibir o dashboard
+// Valida se todas as respostas estão preenchidas corretamente
+function validateInputs() {
+    const inputs = document.querySelectorAll('input[type="number"]');
+    let isValid = true;
+
+    inputs.forEach(input => {
+        if (input.value === "" || input.value < 1 || input.value > 5) {
+            isValid = false;
+            input.classList.add('error');
+        } else {
+            input.classList.remove('error');
+        }
+    });
+
+    if (!isValid) {
+        alert("Por favor, preencha todas as perguntas com valores entre 1 e 5.");
+    }
+
+    return isValid;
+}
+
+// Calcula a pontuação total e exibe o resultado
 function calculateScore() {
     if (!validateInputs()) return;
 
@@ -57,32 +68,47 @@ function calculateScore() {
         totalScore += parseInt(input.value);
     });
 
-    let analysis = '';
-    let leaderType = '';
-    let imageUrl = '';
+    const result = analyzeScore(totalScore);
+    displayResult(totalScore, result);
+}
 
+// Analisa a pontuação e retorna o tipo de líder e a análise
+function analyzeScore(totalScore) {
     if (totalScore >= 10 && totalScore <= 20) {
-        analysis = "Liderança mais autocrática. Você tende a tomar decisões sozinho e manter o controle centralizado.";
-        leaderType = 'Autocrático';
-        imageUrl = '../images/autocratico.png';
+        return {
+            analysis: "Liderança mais autocrática. Você tende a tomar decisões sozinho e manter o controle centralizado.",
+            leaderType: 'Autocrático',
+            imageUrl: '../images/autocratico.png'
+        };
     } else if (totalScore >= 21 && totalScore <= 30) {
-        analysis = "Liderança equilibrada. Você busca um meio-termo entre autonomia e controle.";
-        leaderType = 'Equilibrado';
-        imageUrl = '../images/equilibrado.png';
+        return {
+            analysis: "Liderança equilibrada. Você busca um meio-termo entre autonomia e controle.",
+            leaderType: 'Equilibrado',
+            imageUrl: '../images/equilibrado.png'
+        };
     } else if (totalScore >= 31 && totalScore <= 40) {
-        analysis = "Liderança participativa. Você valoriza a opinião da equipe e promove um ambiente colaborativo.";
-        leaderType = 'Participativo';
-        imageUrl = '../images/participativo.png';
+        return {
+            analysis: "Liderança participativa. Você valoriza a opinião da equipe e promove um ambiente colaborativo.",
+            leaderType: 'Participativo',
+            imageUrl: '../images/participativo.png'
+        };
     } else if (totalScore >= 41 && totalScore <= 50) {
-        analysis = "Liderança inspiradora. Você motiva, apoia e desenvolve sua equipe, promovendo um ambiente de confiança e inovação.";
-        leaderType = 'Inspirador';
-        imageUrl = '../images/inspirador.png';
+        return {
+            analysis: "Liderança inspiradora. Você motiva, apoia e desenvolve sua equipe, promovendo um ambiente de confiança e inovação.",
+            leaderType: 'Inspirador',
+            imageUrl: '../images/inspirador.png'
+        };
     } else {
-        analysis = "Por favor, responda todas as perguntas para obter uma análise.";
-        leaderType = 'Indefinido';
+        return {
+            analysis: "Por favor, responda todas as perguntas para obter uma análise.",
+            leaderType: 'Indefinido',
+            imageUrl: ''
+        };
     }
+}
 
-    // Exibe o resultado com o dashboard
+// Exibe o resultado na página
+function displayResult(totalScore, result) {
     resultDiv.innerHTML = `
         <div class="dashboard">
             <h2>Resultado do Teste de Liderança</h2>
@@ -93,26 +119,26 @@ function calculateScore() {
                 </div>
                 <div class="dashboard-item">
                     <h3>Tipo de Líder</h3>
-                    <p>${leaderType}</p>
+                    <p>${result.leaderType}</p>
                 </div>
             </div>
             <div class="chart-container">
                 <canvas id="leaderChart"></canvas>
             </div>
-            <img src="${imageUrl}" alt="${leaderType}" class="leader-image">
-            <p>${analysis}</p>
+            ${result.imageUrl ? `<img src="${result.imageUrl}" alt="${result.leaderType}" class="leader-image">` : ''}
+            <p>${result.analysis}</p>
         </div>
     `;
 
-    // Criar ou atualizar o gráfico
+    console.log("Canvas criado:", document.getElementById('leaderChart')); // Verifique no console
     createChart(totalScore);
 }
 
-// Função para criar o gráfico e evitar duplicação
+// Cria o gráfico de barras
 function createChart(totalScore) {
     const canvas = document.getElementById('leaderChart');
 
-    // Remove qualquer gráfico existente antes de criar um novo
+    // Remove o gráfico anterior, se existir
     if (canvas.chartInstance) {
         canvas.chartInstance.destroy();
     }
@@ -170,8 +196,11 @@ function createChart(totalScore) {
     });
 }
 
-// Adiciona o evento de clique ao botão "Mostrar Resultado"
+// Evento para calcular o resultado ao clicar no botão
 showResultButton.addEventListener('click', (e) => {
     e.preventDefault();
     calculateScore();
 });
+
+// Renderiza as perguntas ao carregar a página
+renderQuestions();

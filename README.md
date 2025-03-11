@@ -4,7 +4,7 @@ Este projeto é um teste de liderança que ajuda você a descobrir seu estilo de
 
 ## Como Usar
 
-1. Acesse o site: (https://ricnond.github.io/tesde-de-lideranca-html/output/pages/teste.html).
+1. Acesse o site: (https://ricnond.github.io/teste-de-lideranca-html/).
 2. Responda as perguntas e veja seu resultado.
 
 ## Tecnologias Usadas

@@ -109,7 +109,7 @@ function analyzeScore(count1to2, count3to4, count5, count1) {
                 ${conclusao}
             `,
             leaderType: 'Autoritária',
-            imageUrl: '../output/images/autocratico.png'
+            imageUrl: '../output/images/autoritario.png'
         };
     }
     // Verifica se a maioria das respostas é 3-4 (Democrática)

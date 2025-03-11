@@ -17,6 +17,7 @@ const resultDiv = document.getElementById('result');
 
 // Adiciona as perguntas ao formulário
 function renderQuestions() {
+    console.log("Renderizando perguntas..."); // Verifique no console se esta mensagem aparece
     questions.forEach((question, index) => {
         const div = document.createElement('div');
         div.className = 'question';
@@ -96,7 +97,7 @@ function analyzeScore(count1to2, count3to4, count5, count1) {
                 ${conclusao}
             `,
             leaderType: 'Laissez-Faire',
-            imageUrl: '../images/laissez-faire.png'
+            imageUrl: '../output/images/laissez-faire.png'
         };
     }
     // Verifica se a maioria das respostas é 1-2 (Autoritária)
@@ -108,7 +109,7 @@ function analyzeScore(count1to2, count3to4, count5, count1) {
                 ${conclusao}
             `,
             leaderType: 'Autoritária',
-            imageUrl: '../images/autocratico.png'
+            imageUrl: '../output/images/autocratico.png'
         };
     }
     // Verifica se a maioria das respostas é 3-4 (Democrática)
@@ -120,7 +121,7 @@ function analyzeScore(count1to2, count3to4, count5, count1) {
                 ${conclusao}
             `,
             leaderType: 'Democrática',
-            imageUrl: '../images/democratico.png'
+            imageUrl: '../output/images/democratico.png'
         };
     }
     // Verifica se a maioria das respostas é 5 (Servidora)
@@ -132,7 +133,7 @@ function analyzeScore(count1to2, count3to4, count5, count1) {
                 ${conclusao}
             `,
             leaderType: 'Servidora',
-            imageUrl: '../images/servidor.png'
+            imageUrl: '../output/images/servidor.png'
         };
     }
     // Caso não haja uma maioria clara

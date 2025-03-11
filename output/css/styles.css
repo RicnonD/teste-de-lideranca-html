@@ -21,41 +21,17 @@ header {
     background-color: rgba(0, 0, 0, 0.9); /* Fundo semi-transparente */
     color: #fff;
     padding: 10px 20px; /* Espaçamento interno */
-    display: flex;
-    align-items: center; /* Alinha todos os itens verticalmente no meio */
-    justify-content: space-between; /* Logo e título à esquerda, nav à direita */
+    text-align: center; /* Centraliza o conteúdo */
     box-shadow: 0 4px 10px rgba(133, 20, 20, 0.9);
     backdrop-filter: blur(5px); /* Efeito de desfoque no fundo */
 }
 
-/* Estilos do Header */
-header {
-    background-color: rgba(0, 0, 0, 0.9); /* Fundo semi-transparente */
-    color: #fff;
-    padding: 10px 20px; /* Espaçamento interno */
-    display: flex;
-    align-items: center; /* Alinha todos os itens verticalmente no meio */
-    justify-content: space-between; /* Logo e título à esquerda, nav à direita */
-    box-shadow: 0 4px 10px rgba(133, 20, 20, 0.9);
-    backdrop-filter: blur(5px); /* Efeito de desfoque no fundo */
-}
-
-/* Container para logo e título */
+/* Container para o título e navegação */
 .header-content {
     display: flex;
-    align-items: center; /* Alinha logo e título verticalmente */
-    gap: 15px; /* Espaçamento entre a logo e o título */
-}
-
-/* Estilos da Logo */
-.logo {
-    max-height: 50px; /* Ajuste a altura conforme necessário */
-    width: auto; /* Mantém a proporção da imagem */
-    transition: transform 0.3s ease; /* Efeito de hover suave */
-}
-
-.logo:hover {
-    transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+    flex-direction: column; /* Coloca o título em cima dos botões */
+    align-items: center; /* Centraliza horizontalmente */
+    gap: 10px; /* Espaçamento entre o título e os botões */
 }
 
 /* Estilos do Título */

@@ -73,7 +73,7 @@ function analyzeScore(count1to2, count3to4, count5, count1) {
                 ${conclusao}
             `,
             leaderType: 'Laissez-Faire',
-            imageUrl: '../images/laissez-faire.png'
+            imageUrl: '/teste-de-lideranca-html/output/images/laissez-faire.png'
         };
     }
     // Verifica se a maioria das respostas é 5 (Servidora)
@@ -85,7 +85,7 @@ function analyzeScore(count1to2, count3to4, count5, count1) {
                 ${conclusao}
             `,
             leaderType: 'Servidora',
-            imageUrl: '../images/servidor.png'
+            imageUrl: '/teste-de-lideranca-html/output/images/servidor.png'
         };
     }
     // Verifica se a maioria das respostas é 3-4 (Democrática)
@@ -97,7 +97,7 @@ function analyzeScore(count1to2, count3to4, count5, count1) {
                 ${conclusao}
             `,
             leaderType: 'Democrática',
-            imageUrl: '../images/democratico.png'
+            imageUrl: '/teste-de-lideranca-html/output/images/democratico.png'
         };
     }
     // Caso contrário, retorna Autoritária (respostas 1-2, excluindo respostas 1 já contadas para Laissez-Faire)
@@ -109,7 +109,7 @@ function analyzeScore(count1to2, count3to4, count5, count1) {
                 ${conclusao}
             `,
             leaderType: 'Autoritária',
-            imageUrl: '../images/autoritario.png'
+            imageUrl: '/teste-de-lideranca-html/output/images/autoritario.png'
         };
     }
 }

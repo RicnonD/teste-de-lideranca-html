@@ -4,13 +4,11 @@ Este projeto é um teste de liderança que ajuda você a descobrir seu estilo de
 
 ## Como Usar
 
-1. Acesse o site: (https://ricnond.github.io/tesde-de-lideranca-html/output/pages/teste.html).
-2. Responda as perguntas e veja seu resultado.
+1. Acesse o site: [https://ricnond.github.io/teste-de-lideranca-html/](https://ricnond.github.io/teste-de-lideranca-html/).
+2. Responda às perguntas e veja seu resultado.
 
 ## Tecnologias Usadas
 
-
-Tecnologias Usadas:
-
-HTML5: Estrutura do conteúdo.
-CSS3: Estilos para tornar o layout responsivo e visualmente agradável.
+- **JavaScript**: Para a funcionalidade interativa do teste.
+- **HTML5**: Para estruturar o conteúdo do site.
+- **CSS3**: Para estilizar o layout e tornar a interface responsiva e visualmente agradável.

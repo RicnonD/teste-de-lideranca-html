@@ -6,20 +6,56 @@
     <title>Teste de Liderança</title>
     <!-- Caminho corrigido para o CSS -->
     <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* Estilo para remover as bolinhas da lista */
+        .instructions ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        /* Estilo para garantir que o texto da lista fique preto */
+        .instructions li {
+            color: black;
+            font-size: 1rem; /* Ajuste o tamanho da fonte conforme necessário */
+            margin-bottom: 8px; /* Espaçamento entre as opções */
+        }
+    </style>
 </head>
 <body>
     <!-- Header será carregado dinamicamente aqui -->
     <header id="header"></header>
 
-    <div class="container">
-        <h2>Teste de Liderança</h2>
-        <p>Responda as perguntas abaixo com uma nota de 1 a 5.</p>
+    <main class="container">
+        <section class="intro">
+            <h2>A MDS - Mentoras de Sucesso tem como propósito</h2>
+            <p>
+                Ajudar líderes a elevar sua liderança de forma estratégica e criativa, utilizando técnicas comprovadas para desenvolver, 
+                engajar e transformar jovens talentos em profissionais de alta performance, garantindo o sucesso sustentável de suas equipes e empresas.
+            </p>
+        </section>
+
+        <section class="instructions">
+            <h3>Instruções</h3>
+            <p>
+                Responda às perguntas abaixo com base no seu comportamento habitual como líder. 
+                Use a escala de 1 a 5 para classificar suas respostas:
+            </p>
+            <ul>
+                <li><strong>1</strong> = Discordo totalmente</li>
+                <li><strong>2</strong> = Discordo</li>
+                <li><strong>3</strong> = Neutro</li>
+                <li><strong>4</strong> = Concordo</li>
+                <li><strong>5</strong> = Concordo totalmente</li>
+            </ul>
+        </section>
+
         <form id="leadershipTest">
             <!-- Perguntas serão inseridas aqui via JavaScript -->
         </form>
+        
         <button id="showResult" class="button">Mostrar Resultado</button>
         <div id="result"></div>
-    </div>
+    </main>
 
     <!-- Footer será carregado dinamicamente aqui -->
     <footer id="footer"></footer>

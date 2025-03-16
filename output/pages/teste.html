@@ -4,28 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teste de Liderança</title>
-    <!-- Caminho corrigido para o CSS -->
     <link rel="stylesheet" href="../css/styles.css">
     <style>
-        /* Estilo para remover as bolinhas da lista */
         .instructions ul {
             list-style-type: none;
             padding-left: 0;
         }
 
-        /* Estilo para garantir que o texto da lista fique preto */
         .instructions li {
             color: black;
-            font-size: 1rem; /* Ajuste o tamanho da fonte conforme necessário */
-            margin-bottom: 8px; /* Espaçamento entre as opções */
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        /* Adicione estilos para erros de input */
+        .error {
+            border: 2px solid red !important;
         }
     </style>
 </head>
 <body>
-    <!-- Header será carregado dinamicamente aqui -->
     <header id="header"></header>
 
     <main class="container">
+        <section class="instructions">
             <h3>Instruções</h3>
             <p>
                 Responda às perguntas abaixo com base no seu comportamento habitual como líder. 
@@ -41,37 +43,36 @@
         </section>
 
         <form id="leadershipTest">
-            <!-- Perguntas serão inseridas aqui via JavaScript -->
+            <!-- As perguntas serão inseridas aqui via JavaScript -->
         </form>
         
         <button id="showResult" class="button">Mostrar Resultado</button>
-        <div id="result"></div>
+        <div id="result" class="result-container"></div>
     </main>
 
-    <!-- Footer será carregado dinamicamente aqui -->
     <footer id="footer"></footer>
 
-    <!-- Inclua a biblioteca Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Caminho corrigido para o JS -->
+    <!-- Scripts -->
     <script src="../js/scripts.js"></script>
 
+    <!-- Carregamento de partials (ajustado para GitHub Pages) -->
     <script>
-        // Função para carregar conteúdo de um arquivo HTML externo (header e footer)
-        function loadHTML(file, elementId) {
-            fetch(file)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById(elementId).innerHTML = data;
-                })
-                .catch(error => console.error('Erro ao carregar o arquivo:', error));
+        // Função para carregar partials
+        async function loadPartial(partialName, elementId) {
+            try {
+                const response = await fetch(`../partials/${partialName}`);
+                const content = await response.text();
+                document.getElementById(elementId).innerHTML = content;
+            } catch (error) {
+                console.error(`Erro ao carregar ${partialName}:`, error);
+            }
         }
 
-        // Carregar header e footer ao carregar a página
-        window.onload = function() {
-            loadHTML('../partials/header.html', 'header');
-            loadHTML('../partials/footer.html', 'footer');
-        }
+        // Carregar header e footer
+        window.addEventListener('DOMContentLoaded', () => {
+            loadPartial('header.html', 'header');
+            loadPartial('footer.html', 'footer');
+        });
     </script>
 </body>
 </html>

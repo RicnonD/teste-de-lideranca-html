@@ -208,11 +208,11 @@ button:hover {
 
 /* Estilos para as imagens do resultado */
 .result img {
-    max-width: 100%; 
-    height: auto; 
-    border-radius: 50%; 
-    margin: 20px auto; 
-    display: block; 
+    max-width: 100%; /* Garante que a imagem não ultrapasse a largura do contêiner */
+    height: auto; /* Mantém a proporção da imagem */
+    border-radius: 50%; /* Mantém o efeito de imagem redonda */
+    margin: 20px auto; /* Centraliza a imagem */
+    display: block; /* Garante que a imagem seja tratada como bloco */
     width: 150px; /* Define um tamanho padrão para a imagem */
     height: 150px; /* Define um tamanho padrão para a imagem */
 }

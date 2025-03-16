@@ -30,21 +30,27 @@
         <section class="instructions">
             <h3>Instruções</h3>
             <p>
-                Responda às perguntas abaixo com base no seu comportamento habitual como líder. 
-                Use a escala de 1 a 5 para classificar suas respostas:
+              Responda às perguntas abaixo com base no seu comportamento habitual como líder. 
+              Use a escala de 1 a 5 para classificar suas respostas:
             </p>
             <ul>
-                <li><strong>1</strong> = Discordo totalmente</li>
-                <li><strong>2</strong> = Discordo</li>
-                <li><strong>3</strong> = Neutro</li>
-                <li><strong>4</strong> = Concordo</li>
-                <li><strong>5</strong> = Concordo totalmente</li>
+              <li><strong>1</strong> = Discordo totalmente</li>
+              <li><strong>2</strong> = Discordo</li>
+              <li><strong>3</strong> = Neutro</li>
+              <li><strong>4</strong> = Concordo</li>
+              <li><strong>5</strong> = Concordo totalmente</li>
             </ul>
-        </section>
-
-        <form id="leadershipTest">
+          </section>
+          
+          <!-- Campo para o nome -->
+          <div class="name-input">
+            <label for="nome">Digite o seu nome:</label>
+            <input type="text" id="nome" name="nome" required>
+          </div>
+          
+          <form id="leadershipTest">
             <!-- As perguntas serão inseridas aqui via JavaScript -->
-        </form>
+          </form>
         
         <button id="showResult" class="button">Mostrar Resultado</button>
         <div id="result" class="result-container"></div>

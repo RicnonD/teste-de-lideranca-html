@@ -16,6 +16,23 @@ body {
     background-attachment: fixed; /* Fixa a imagem ao rolar a página */
 }
 
+.name-input {
+    margin-bottom: 20px;
+  }
+  
+  .name-input label {
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .name-input input {
+    width: 100%;
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
 /* Estilos do Header */
 header {
     background-color: rgba(0, 0, 0, 0.9); /* Fundo semi-transparente */

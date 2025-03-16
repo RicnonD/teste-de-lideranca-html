@@ -1,4 +1,5 @@
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz6ubrBj9EkkJOkWldGvM_8htmJH8cNKp-FngWrRglnqY2r0eoaSJSeWofiumPHtbMv/exec";
+// URL do Google Apps Script
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz2RP58bDONjDXRrNAwovep97nnpTvv2i35oMCRvwk5CUQubeuA0hsOW_0RCE1vjYjD/exec";
 
 // Elementos do DOM
 const form = document.getElementById('leadershipTest');
@@ -45,8 +46,14 @@ function renderQuestions() {
   });
 }
 
-// Valida as respostas
+// Valida as respostas e o nome
 function validateInputs() {
+  const nome = document.getElementById('nome').value.trim();
+  if (!nome) {
+    alert("Por favor, insira seu nome.");
+    return false;
+  }
+
   const inputs = document.querySelectorAll('input[type="number"]');
   let isValid = true;
 
@@ -63,7 +70,7 @@ function validateInputs() {
     alert("Por favor, preencha todas as perguntas com valores entre 1 e 5.");
   }
 
-  return isValid;
+  return isValid && nome; // Retorna true apenas se o nome e as respostas forem válidos
 }
 
 // Analisa a pontuação e retorna o tipo de líder
@@ -82,7 +89,7 @@ function analyzeScore(count1to2, count3to4, count5, count1) {
         ${conclusao}
       `,
       leaderType: 'Laissez-Faire',
-      imageUrl: 'teste-de-lideranca-html/output/images/laissez-faire.png'
+      imageUrl: '../output/images/laissez-faire.png'
     };
   } else if (count5 > count3to4 && count5 > count1to2 && count5 > count1) {
     return {
@@ -92,7 +99,7 @@ function analyzeScore(count1to2, count3to4, count5, count1) {
         ${conclusao}
       `,
       leaderType: 'Servidora',
-      imageUrl: 'teste-de-lideranca-html/output/images/servidor.png'
+      imageUrl: '../output/images/servidor.png'
     };
   } else if (count3to4 > count1to2 && count3to4 > count1) {
     return {
@@ -102,7 +109,7 @@ function analyzeScore(count1to2, count3to4, count5, count1) {
         ${conclusao}
       `,
       leaderType: 'Democrática',
-      imageUrl: 'teste-de-lideranca-html/output/images/democratico.png'
+      imageUrl: '../output/images/democratico.png'
     };
   } else {
     return {
@@ -112,7 +119,7 @@ function analyzeScore(count1to2, count3to4, count5, count1) {
         ${conclusao}
       `,
       leaderType: 'Autoritária',
-      imageUrl: 'teste-de-lideranca-html/output/images/autoritario.png'
+      imageUrl: '../output/images/autoritario.png'
     };
   }
 }
@@ -137,10 +144,14 @@ async function displayResult(result) {
     return;
   }
 
+  // Captura o nome
+  const nome = document.getElementById('nome').value.trim();
+
   // Exibe o resultado
   resultDiv.innerHTML = `
     <div class="result-card">
       <h2>Resultado</h2>
+      <p><strong>Nome:</strong> ${nome}</p>
       <img src="${result.imageUrl}" alt="${result.leaderType}">
       ${result.analysis}
     </div>
@@ -148,6 +159,7 @@ async function displayResult(result) {
 
   // Prepara os dados para enviar ao Google Sheets
   const dataToSave = {
+    nome: nome, // Adiciona o nome
     estilo: result.leaderType,
     respostas: getRespostas(),
     totalPontos: getRespostas().reduce((acc, curr) => acc + curr.resposta, 0)
@@ -160,7 +172,8 @@ async function displayResult(result) {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(dataToSave)
+      body: JSON.stringify(dataToSave),
+      mode: 'no-cors' // Modo no-cors para evitar erros de CORS
     });
 
     if (response.ok) {

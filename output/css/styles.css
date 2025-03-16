@@ -16,6 +16,12 @@ body {
     background-attachment: fixed; /* Fixa a imagem ao rolar a página */
 }
 
+@media (max-width: 768px) {
+    body {
+        background-size: contain; /* Ajusta a imagem para caber na tela sem cortes em dispositivos menores */
+    }
+}
+
 .name-input {
     margin-bottom: 20px;
 }
@@ -200,13 +206,21 @@ button:hover {
     color: #222;
 }
 
+/* Estilos para as imagens do resultado */
 .result img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover; 
-    border-radius: 50%; 
-    margin: 20px auto; 
-    display: block; 
+    max-width: 100%; /* Garante que a imagem não ultrapasse a largura do contêiner */
+    height: auto; /* Mantém a proporção da imagem */
+    border-radius: 50%; /* Mantém o efeito de imagem redonda */
+    margin: 20px auto; /* Centraliza a imagem */
+    display: block; /* Garante que a imagem seja tratada como bloco */
+}
+
+/* Ajustes para telas menores */
+@media (max-width: 768px) {
+    .result img {
+        width: 60px; /* Reduz o tamanho da imagem em dispositivos móveis */
+        height: 60px;
+    }
 }
 
 /* Estilos para o Dashboard */

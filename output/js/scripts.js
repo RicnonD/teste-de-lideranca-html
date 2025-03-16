@@ -82,7 +82,7 @@ function analyzeScore(count1to2, count3to4, count5, count1) {
         ${conclusao}
       `,
       leaderType: 'Laissez-Faire',
-      imageUrl: '../output/images/laissez-faire.png'
+      imageUrl: 'teste-de-lideranca-html/output/images/laissez-faire.png'
     };
   } else if (count5 > count3to4 && count5 > count1to2 && count5 > count1) {
     return {
@@ -92,7 +92,7 @@ function analyzeScore(count1to2, count3to4, count5, count1) {
         ${conclusao}
       `,
       leaderType: 'Servidora',
-      imageUrl: '../output/images/servidor.png'
+      imageUrl: 'teste-de-lideranca-html/output/images/servidor.png'
     };
   } else if (count3to4 > count1to2 && count3to4 > count1) {
     return {
@@ -102,7 +102,7 @@ function analyzeScore(count1to2, count3to4, count5, count1) {
         ${conclusao}
       `,
       leaderType: 'Democrática',
-      imageUrl: '../output/images/democratico.png'
+      imageUrl: 'teste-de-lideranca-html/output/images/democratico.png'
     };
   } else {
     return {
@@ -112,7 +112,7 @@ function analyzeScore(count1to2, count3to4, count5, count1) {
         ${conclusao}
       `,
       leaderType: 'Autoritária',
-      imageUrl: '../output/images/autoritario.png'
+      imageUrl: 'teste-de-lideranca-html/output/images/autoritario.png'
     };
   }
 }

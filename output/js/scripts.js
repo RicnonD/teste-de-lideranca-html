@@ -1,270 +1,221 @@
-/* Estilos Globais */
-body {
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  color: #fff;
+// URL do Google Apps Script
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz2RP58bDONjDXRrNAwovep97nnpTvv2i35oMCRvwk5CUQubeuA0hsOW_0RCE1vjYjD/exec";
 
-  /* Adicionando a imagem de fundo */
-  background-image: url('../images/background.jpg'); /* Caminho da imagem */
-  background-size: cover; /* Faz a imagem cobrir toda a tela */
-  background-position: center; /* Centraliza a imagem */
-  background-repeat: no-repeat; /* Evita que a imagem se repita */
-  background-attachment: fixed; /* Fixa a imagem ao rolar a página */
+// Elementos do DOM
+const form = document.getElementById('leadershipTest');
+const showResultButton = document.getElementById('showResult');
+const resultDiv = document.getElementById('result');
+
+// Perguntas do teste
+const questions = [
+  "Quando há uma decisão importante a ser tomada, eu prefiro tomar a decisão sozinho, sem envolver minha equipe.",
+  "Eu gosto de consultar minha equipe e buscar consenso antes de tomar decisões importantes.",
+  "Meu foco principal como líder é garantir que minha equipe tenha os recursos e apoio necessários para se desenvolver pessoal e profissionalmente.",
+  "Eu prefiro dar total autonomia à minha equipe, permitindo que eles decidam e conduzam suas tarefas sem muita supervisão.",
+  "Quando surgem conflitos na equipe, eu tomo a iniciativa de resolvê-los de forma rápida e com autoridade.",
+  "Eu encorajo minha equipe a pensar de maneira criativa e a sugerir novas ideias, mesmo que isso signifique mudanças nos processos tradicionais.",
+  "Eu me esforço para ser um mentor para minha equipe, sempre pronto para oferecer apoio emocional e profissional quando necessário.",
+  "Quando as coisas ficam fora de controle, eu sinto a necessidade de assumir o comando e garantir que todos sigam as direções estabelecidas.",
+  "Eu acredito que a melhor forma de liderança é dar à minha equipe a liberdade para tomar decisões e gerenciar seu próprio trabalho, sem interferências frequentes.",
+  "Eu me esforço para ser um exemplo inspirador para minha equipe, mostrando dedicação e entusiasmo para alcançar os objetivos coletivos."
+];
+
+// Renderiza as perguntas no formulário
+function renderQuestions() {
+  if (!form) {
+    console.error("Formulário não encontrado!");
+    return;
+  }
+
+  questions.forEach((question, index) => {
+    const div = document.createElement('div');
+    div.className = 'question';
+
+    const label = document.createElement('label');
+    label.textContent = `${index + 1}. ${question}`;
+
+    const input = document.createElement('input');
+    input.type = 'number';
+    input.min = 1;
+    input.max = 5;
+    input.required = true;
+
+    div.appendChild(label);
+    div.appendChild(input);
+    form.appendChild(div);
+  });
 }
 
-.name-input {
-  margin-bottom: 20px;
+// Valida as respostas e o nome
+function validateInputs() {
+  const nome = document.getElementById('nome').value.trim();
+  if (!nome) {
+    alert("Por favor, insira seu nome.");
+    return false;
+  }
+
+  const inputs = document.querySelectorAll('input[type="number"]');
+  let isValid = true;
+
+  inputs.forEach(input => {
+    if (input.value === "" || input.value < 1 || input.value > 5) {
+      isValid = false;
+      input.classList.add('error');
+    } else {
+      input.classList.remove('error');
+    }
+  });
+
+  if (!isValid) {
+    alert("Por favor, preencha todas as perguntas com valores entre 1 e 5.");
+  }
+
+  return isValid && nome; // Retorna true apenas se o nome e as respostas forem válidos
 }
 
-.name-input label {
-  font-size: 1rem;
-  color: #333;
+// Analisa a pontuação e retorna o tipo de líder
+function analyzeScore(count1to2, count3to4, count5, count1) {
+  const conclusao = `
+    <h3>Conclusão:</h3>
+    <p>Este teste permite que os líderes reflitam sobre seus comportamentos e ajustem suas práticas de liderança conforme necessário. 
+    Independentemente do estilo predominante, é sempre valioso combinar aspectos de outros estilos para criar uma abordagem mais flexível e eficaz.</p>
+  `;
+
+  if (count1 > count1to2 && count1 > count3to4 && count1 > count5) {
+    return {
+      analysis: `
+        <h3>Interpretação dos Resultados:</h3>
+        <p><strong>Maioria das respostas 1 (Laissez-Faire):</strong> Seu estilo de liderança é Laissez-Faire. Você oferece grande autonomia à sua equipe.</p>
+        ${conclusao}
+      `,
+      leaderType: 'Laissez-Faire',
+      imageUrl: '/teste-de-lideranca-html/output/images/laissez-faire.png'
+    };
+  } else if (count5 > count3to4 && count5 > count1to2 && count5 > count1) {
+    return {
+      analysis: `
+        <h3>Interpretação dos Resultados:</h3>
+        <p><strong>Maioria das respostas 5 (Servidora):</strong> Seu estilo de liderança é Servidor.</p>
+        ${conclusao}
+      `,
+      leaderType: 'Servidora',
+      imageUrl: '/teste-de-lideranca-html/output/images/servidor.png'
+    };
+  } else if (count3to4 > count1to2 && count3to4 > count1) {
+    return {
+      analysis: `
+        <h3>Interpretação dos Resultados:</h3>
+        <p><strong>Maioria das respostas 3-4 (Democrática):</strong> Seu estilo de liderança é Democrático.</p>
+        ${conclusao}
+      `,
+      leaderType: 'Democrática',
+      imageUrl: '/teste-de-lideranca-html/output/images/democratico.png'
+    };
+  } else {
+    return {
+      analysis: `
+        <h3>Interpretação dos Resultados:</h3>
+        <p><strong>Maioria das respostas 1-2 (Autoritária):</strong> Seu estilo de liderança é mais Autoritário.</p>
+        ${conclusao}
+      `,
+      leaderType: 'Autoritária',
+      imageUrl: '/teste-de-lideranca-html/output/images/autoritario.png'
+    };
+  }
 }
 
-.name-input input {
-  width: 100%;
-  padding: 8px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+// Função para obter todas as respostas
+function getRespostas() {
+  const inputs = document.querySelectorAll('input[type="number"]');
+  const respostas = [];
+  inputs.forEach((input, index) => {
+    respostas.push({
+      pergunta: index + 1,
+      resposta: parseInt(input.value) || 0
+    });
+  });
+  return respostas;
 }
 
-/* Estilos do Header */
-header {
-  background-color: rgba(0, 0, 0, 0.9); /* Fundo semi-transparente */
-  color: #fff;
-  padding: 10px 20px; /* Espaçamento interno */
-  text-align: center; /* Centraliza o conteúdo */
-  box-shadow: 0 4px 10px rgba(133, 20, 20, 0.9);
-  backdrop-filter: blur(5px); /* Efeito de desfoque no fundo */
+// Exibe o resultado e salva no Google Sheets
+async function displayResult(result) {
+  if (!resultDiv) {
+    console.error("Elemento de resultado não encontrado!");
+    return;
+  }
+
+  // Captura o nome
+  const nome = document.getElementById('nome').value.trim();
+
+  // Exibe o resultado
+  resultDiv.innerHTML = `
+    <div class="result-card">
+      <h2>Resultado</h2>
+      <p><strong>Nome:</strong> ${nome}</p>
+      <img src="${result.imageUrl}" alt="${result.leaderType}">
+      ${result.analysis}
+    </div>
+  `;
+
+  // Prepara os dados para enviar ao Google Sheets
+  const dataToSave = {
+    nome: nome, // Adiciona o nome
+    estilo: result.leaderType,
+    respostas: getRespostas(),
+    totalPontos: getRespostas().reduce((acc, curr) => acc + curr.resposta, 0)
+  };
+
+  // Envia para o Google Sheets
+  try {
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dataToSave),
+      mode: 'no-cors' // Modo no-cors para evitar erros de CORS
+    });
+
+    if (response.ok) {
+      console.log("Dados salvos no Google Sheets!");
+    } else {
+      console.error("Erro ao salvar:", await response.text());
+    }
+  } catch (error) {
+    console.error("Erro ao salvar:", error);
+  }
 }
 
-/* Container para o título e navegação */
-.header-content {
-  display: flex;
-  flex-direction: column; /* Coloca o título em cima dos botões */
-  align-items: center; /* Centraliza horizontalmente */
-  gap: 10px; /* Espaçamento entre o título e os botões */
+// Calcula a pontuação
+function calculateScore() {
+  if (!validateInputs()) return;
+
+  const inputs = document.querySelectorAll('input[type="number"]');
+  let count1to2 = 0, count3to4 = 0, count5 = 0, count1 = 0;
+
+  inputs.forEach(input => {
+    const value = parseInt(input.value);
+    if (value === 1) count1++;
+    if (value === 2) count1to2++;
+    if (value >= 3 && value <= 4) count3to4++;
+    if (value === 5) count5++;
+  });
+
+  const result = analyzeScore(count1to2, count3to4, count5, count1);
+  displayResult(result);
 }
 
-/* Estilos do Título */
-header h1 {
-  margin: 0;
-  font-size: 28px; /* Ajuste o tamanho conforme necessário */
-  font-weight: 600;
-}
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+  console.log("DOM carregado!");
+  renderQuestions();
+});
 
-/* Estilos da Navegação */
-nav {
-  display: flex;
-  gap: 15px; /* Espaçamento entre os links */
-}
-
-nav a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 18px;
-  transition: color 0.3s;
-}
-
-nav a:hover {
-  color: #28a745; /* Cor ao passar o mouse */
-}
-
-/* Container Principal */
-.container {
-  max-width: 900px;
-  margin: 20px auto;
-  background: rgba(255, 255, 255, 0.9); /* Fundo semi-transparente para o conteúdo */
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  color: #333; /* Cor do texto para contraste */
-}
-
-/* Conteúdo da Página */
-.page-content {
-  text-align: center;
-}
-
-.page-content h2 {
-  font-size: 28px;
-  color: #222;
-  margin-bottom: 20px;
-}
-
-.page-content p {
-  font-size: 16px;
-  color: #444;
-  line-height: 1.8;
-}
-
-/* Botões */
-.button {
-  display: inline-block;
-  padding: 12px 24px;
-  background: linear-gradient(45deg, #28a745, #218838);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 18px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform 0.2s, background 0.3s;
-}
-
-.button:hover {
-  background: linear-gradient(45deg, #218838, #1c7a3b);
-  transform: scale(1.05);
-}
-
-/* Rodapé */
-footer {
-  background-color: rgba(0, 0, 0, 0.9); /* Fundo semi-transparente (90% de opacidade) */
-  color: #fff;
-  text-align: center;
-  padding: 15px 0;
-  margin-top: auto;
-  box-shadow: 0 -4px 10px rgba(133, 20, 20, 0.9);
-  backdrop-filter: blur(5px); /* Adiciona um efeito de desfoque ao fundo */
-}
-
-/* Estilos para o Teste de Liderança */
-.instructions {
-  font-size: 18px;
-  text-align: center;
-  margin-bottom: 20px;
-  color: #555;
-}
-
-.scale {
-  font-size: 16px;
-  text-align: center;
-  color: #777;
-  margin-bottom: 30px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.question {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-label {
-  font-weight: bold;
-  font-size: 18px;
-  color: #222;
-}
-
-input[type="number"] {
-  padding: 10px;
-  border: 1px solid #bbb;
-  border-radius: 6px;
-  width: 70px;
-  font-size: 16px;
-}
-
-button {
-  padding: 12px 24px;
-  background: linear-gradient(45deg, #28a745, #218838);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 18px;
-  transition: transform 0.2s, background 0.3s;
-}
-
-button:hover {
-  background: linear-gradient(45deg, #218838, #1c7a3b);
-  transform: scale(1.05);
-}
-
-.result {
-  margin-top: 20px;
-  padding: 20px;
-  background-color: rgba(241, 243, 245, 0.9); /* Fundo semi-transparente */
-  border-radius: 10px;
-  font-size: 20px;
-  text-align: center;
-  color: #222;
-}
-
-.leader-image {
-  width: 150px;
-  height: 150px;
-  margin: 20px auto; /* Centraliza a imagem */
-  display: block; /* Garante que a imagem seja tratada como bloco */
-  border-radius: 50%;
-  border: 4px solid #28a745;
-  object-fit: cover; /* Faz a imagem preencher o espaço sem distorcer */
-}
-
-/* Estilos para o Dashboard */
-.dashboard {
-  margin-top: 30px;
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.9); /* Fundo semi-transparente */
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  text-align: center;
-}
-
-.dashboard h2 {
-  font-size: 26px;
-  color: #222;
-  margin-bottom: 20px;
-}
-
-.dashboard-content {
-  display: flex;
-  justify-content: space-around;
-  gap: 20px;
-  margin-bottom: 30px;
-  flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha em telas menores */
-}
-
-.dashboard-item {
-  text-align: center;
-  padding: 15px;
-  background-color: rgba(248, 249, 250, 0.9); /* Fundo semi-transparente */
-  border-radius: 10px;
-  flex: 1;
-  min-width: 200px; /* Define uma largura mínima para os itens */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.dashboard-item h3 {
-  margin: 0;
-  font-size: 20px;
-  color: #222;
-}
-
-.dashboard-item p {
-  font-size: 26px;
-  font-weight: bold;
-  color: #28a745;
-  margin: 10px 0;
-}
-
-/* Estilos para o Gráfico */
-.chart-container {
-  width: 100%;
-  max-width: 600px;
-  margin: 20px auto; /* Centraliza o gráfico */
-}
-
-canvas {
-  width: 100% !important;
-  height: auto !important;
+if (showResultButton) {
+  showResultButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    calculateScore();
+  });
+} else {
+  console.error("Botão 'Mostrar Resultado' não encontrado!");
 }

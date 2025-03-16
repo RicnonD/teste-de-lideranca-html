@@ -85,7 +85,9 @@ function analyzeScore(count1to2, count3to4, count5, count1) {
     return {
       analysis: `
         <h3>Interpretação dos Resultados:</h3>
-        <p><strong>Maioria das respostas 1 (Laissez-Faire):</strong> Seu estilo de liderança é Laissez-Faire. Você oferece grande autonomia à sua equipe.</p>
+        <p><strong>Maioria das respostas 1 (Laissez-Faire):</strong> Seu estilo de liderança é Laissez-Faire. Você oferece grande autonomia à sua equipe.
+        Você oferece grande autonomia à sua equipe, permitindo que eles se gerenciem sozinhos. 
+        Esse estilo funciona bem com equipes altamente experientes e motivadas, mas pode ser um desafio em situações que exigem mais orientação e controle.</p>
         ${conclusao}
       `,
       leaderType: 'Laissez-Faire',
@@ -95,7 +97,9 @@ function analyzeScore(count1to2, count3to4, count5, count1) {
     return {
       analysis: `
         <h3>Interpretação dos Resultados:</h3>
-        <p><strong>Maioria das respostas 5 (Servidora):</strong> Seu estilo de liderança é Servidor.</p>
+        <p><strong>Maioria das respostas 5 (Servidora):</strong> Seu estilo de liderança é Servidor.
+        Você está focado no bem-estar e desenvolvimento da sua equipe, garantindo que eles tenham o suporte necessário. 
+        Líderes servidores criam ambientes de trabalho positivos e motivadores, o que fortalece a confiança e o compromisso da equipe.</p>
         ${conclusao}
       `,
       leaderType: 'Servidora',
@@ -105,7 +109,9 @@ function analyzeScore(count1to2, count3to4, count5, count1) {
     return {
       analysis: `
         <h3>Interpretação dos Resultados:</h3>
-        <p><strong>Maioria das respostas 3-4 (Democrática):</strong> Seu estilo de liderança é Democrático.</p>
+        <p><strong>Maioria das respostas 3-4 (Democrática):</strong> Seu estilo de liderança é Democrático.
+        Você valoriza a colaboração e busca a participação ativa de sua equipe nas decisões. 
+        Esse estilo promove um ambiente de trabalho mais participativo e engajado, ideal para o desenvolvimento contínuo de todos.</p>
         ${conclusao}
       `,
       leaderType: 'Democrática',
@@ -115,7 +121,9 @@ function analyzeScore(count1to2, count3to4, count5, count1) {
     return {
       analysis: `
         <h3>Interpretação dos Resultados:</h3>
-        <p><strong>Maioria das respostas 1-2 (Autoritária):</strong> Seu estilo de liderança é mais Autoritário.</p>
+        <p><strong>Maioria das respostas 1-2 (Autoritária):</strong> Seu estilo de liderança é mais Autoritário.
+        Você tende a tomar decisões de forma independente e espera que sua equipe siga suas instruções. 
+        Isso pode ser útil em situações de crise, mas é importante equilibrar com outras abordagens quando possível, para incentivar a colaboração e a autonomia da equipe.</p>
         ${conclusao}
       `,
       leaderType: 'Autoritária',
